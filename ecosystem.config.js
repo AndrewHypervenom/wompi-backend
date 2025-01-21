@@ -4,10 +4,10 @@ module.exports = {
     script: "./src/app.js",
     env: {
       NODE_ENV: "production",
-      PORT: 5000,
-      MONGODB_URI: "tu-uri-de-mongodb-atlas",
-      WOMPI_PUBLIC_KEY: "tu-clave-publica",
-      WOMPI_PRIVATE_KEY: "tu-clave-privada"
+      PORT: process.env.PORT || 5000,
+      MONGODB_URI: process.env.MONGODB_URI,
+      WOMPI_PUBLIC_KEY: process.env.WOMPI_PUBLIC_KEY,
+      WOMPI_PRIVATE_KEY: process.env.WOMPI_PRIVATE_KEY
     }
   }]
 };

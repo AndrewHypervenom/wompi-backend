@@ -8,7 +8,11 @@ const transaccionRoutes = require('./routes/transaccionRoutes');
 const app = express();
 
 app.use(cors({
-  origin: ['https://wompi-store.netlify.app', 'http://localhost:5173'],
+  origin: [
+    'https://wompi-store.netlify.app', 
+    'http://localhost:5173',
+    'https://checkout.wompi.co'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

@@ -2,7 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const wompiApi = axios.create({
-  baseURL: process.env.WOMPI_SANDBOX_URL || 'https://sandbox.wompi.co/v1',
+  baseURL: process.env.WOMPI_SANDBOX_URL,
   headers: {
     'Authorization': `Bearer ${process.env.WOMPI_PRIVATE_KEY}`,
     'Content-Type': 'application/json'

@@ -7,9 +7,8 @@ const transaccionRoutes = require('./routes/transaccionRoutes');
 
 const app = express();
 
-// Configuración de CORS específica para dominio de Amplify
 app.use(cors({
-  origin: '*',
+  origin: ['https://wompi-store.netlify.app', 'http://localhost:5173'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

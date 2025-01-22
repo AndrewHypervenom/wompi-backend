@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createTransaction } = require('../services/transactionService');
+const { createTransaction } = require('../services/transactionService.js');
 
 router.post('/', async (req, res) => {
   try {

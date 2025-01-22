@@ -6,7 +6,6 @@ const transaccionSchema = new mongoose.Schema({
     ref: 'Producto',
     required: true
   },
-  wompiId: String,
   estado: {
     type: String,
     enum: ['PENDIENTE', 'APPROVED', 'DECLINED', 'VOIDED', 'ERROR'],

@@ -9,7 +9,7 @@ const transaccionSchema = new mongoose.Schema({
   wompiId: String,
   estado: {
     type: String,
-    enum: ['PENDIENTE', 'APPROVED', 'DECLINED', 'VOIDED'],
+    enum: ['PENDIENTE', 'APPROVED', 'DECLINED', 'VOIDED', 'ERROR'],
     default: 'PENDIENTE'
   },
   monto: {

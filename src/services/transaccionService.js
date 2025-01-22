@@ -6,33 +6,42 @@ class TransaccionService {
   // Elimina el 'const' y usa el método directo de la clase
   async createTransaction(data) {
     try {
-      const wompiTransaction = await wompiApi.post('/transactions', {
-        amount_in_cents: data.monto * 100,
-        currency: 'COP',
-        customer_email: data.email,
-        reference: `ORDER-${Date.now()}`,
-        payment_method: {
-          type: 'CARD',
-          token: data.cardToken,
-          installments: 1
-        }
-      });
-
+      const { productoId, monto, telefono, direccionEntrega, ciudad, codigoPostal } = data;
+  
+      // Validar que todos los campos requeridos estén presentes
+      if (!productoId || !monto || !telefono || !direccionEntrega || !ciudad || !codigoPostal) {
+        throw new Error('Faltan campos requeridos');
+      }
+  
+      // Verificar que el producto existe y tiene stock
+      const producto = await Producto.findById(productoId);
+      if (!producto) {
+        throw new Error('Producto no encontrado');
+      }
+      if (producto.stock <= 0) {
+        throw new Error('Producto sin stock disponible');
+      }
+  
+      // Crear la transacción
       const transaccion = new Transaccion({
-        productoId: data.productoId,
-        wompiId: wompiTransaction.data.id,
-        estado: wompiTransaction.data.status,
-        monto: data.monto,
-        telefono: data.telefono,
-        direccionEntrega: data.direccionEntrega,
-        ciudad: data.ciudad,
-        codigoPostal: data.codigoPostal
+        productoId,
+        estado: 'PENDIENTE',
+        monto,
+        telefono,
+        direccionEntrega,
+        ciudad,
+        codigoPostal
       });
-
-      await transaccion.save();
-      return { transaccion, wompiData: wompiTransaction.data };
+  
+      // Guardar la transacción
+      const nuevaTransaccion = await transaccion.save();
+      
+      return {
+        success: true,
+        data: nuevaTransaccion
+      };
     } catch (error) {
-      console.error('Error creating transaction:', error);
+      console.error('Error en createTransaction:', error);
       throw error;
     }
   }
